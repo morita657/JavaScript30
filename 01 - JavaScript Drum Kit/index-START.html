@@ -60,25 +60,22 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
   <script>
-    window.onclick = (e) => {
-      // if data-key exist in the element clicked, store the value in val variable
-      let val = e.srcElement.getAttribute('data-key');
-      // pass the value in audio tag
-      let sound = document.querySelector('audio[data-key="' + val + '"]');
-      // in case of kbd or span tag is clicked, pick up the parent element and catch the data-key value
-      let key = e.srcElement.parentNode.getAttribute('data-key');
-      // invoke if val or key variable is found to turn on the audio sound
-      if (val || key) {
-        let num = val || key;
-        // find the div element to add class called playing
-        let target = document.querySelector('div[data-key="' + num + '"]');
-        // add and remove when the key is clicked
-        target.addEventListener('mousedown', () => target.classList.add('playing'));
-        target.addEventListener('mouseup', () => target.classList.remove('playing'));
-        // turn on the sound
-        document.querySelector('audio[data-key="' + num + '"]').play();
+    window.addEventListener('keydown', (e) => {
+      if (e.keyCode) {
+        let sound = document.querySelector("audio[data-key='" + e.keyCode + "'");
+        let target = document.querySelector("div[data-key='" + e.keyCode + "'");
+        target.classList.add('playing');
+        sound.play();
       }
-    }
+      return;
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode) {
+        let target = document.querySelector("div[data-key='" + e.keyCode + "'");
+        target.classList.remove('playing');
+      }
+      return;
+    });
   </script>
 
 
