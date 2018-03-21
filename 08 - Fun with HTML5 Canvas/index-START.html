@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
 </head>
+
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
-<script>
-</script>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    const canvas = document.getElementById('draw');
+    const ctx = canvas.getContext('2d');
+    let sw = true;
+    const draw = (mouse) => {
+      if (sw) {
+        var i = 0, j = 1, k = 2;
+        // () => {
+        // i++; j++; k++;
+        console.log(i, j, k);
+        const posX = mouse.clientX;
+        const posY = mouse.clientY;
+        ctx.beginPath();
+        ctx.arc(posX, posY, 50, 0, Math.PI * 2, true);
+        ctx.fillStyle = 'rgb(' + 200 + i + ',' + 100 + j + ',' + 10 + k + ')';
+        console.log(ctx.fillStyle);
 
-<style>
-  html, body {
-    margin:0;
-  }
-</style>
-
+        ctx.fill();
+        ctx.moveTo(posX, posY)
+        ctx.stroke();
+        // }
+      }
+    }
+    canvas.addEventListener('mousedown', () => {
+      sw = true;
+      canvas.addEventListener('mousemove', draw);
+    });
+    canvas.addEventListener('mouseup', () => {
+      sw = false;
+    });
+  </script>
 </body>
+
 </html>
