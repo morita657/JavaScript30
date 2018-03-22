@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Console Tricks!</title>
 </head>
+
 <body>
 
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
@@ -36,11 +38,33 @@
     // Viewing DOM Elements
 
     // Grouping together
-
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`Whoa! ${dog.name} is so pretty dog!!`);
+    })
     // counting
-
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    console.count('steve');
+    console.count('steve');
+    console.count('steve');
+    console.count('wes');
+    console.count('wes');
     // timing
+    console.time('fetching.data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
 
+    console.table(dogs)
   </script>
 </body>
+
 </html>
