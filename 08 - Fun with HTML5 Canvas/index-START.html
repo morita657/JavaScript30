@@ -17,23 +17,22 @@
     const canvas = document.getElementById('draw');
     const ctx = canvas.getContext('2d');
     let sw = true;
+    let hue = 0;
     const draw = (mouse) => {
       if (sw) {
-        var i = 0, j = 1, k = 2;
-        // () => {
-        // i++; j++; k++;
-        console.log(i, j, k);
         const posX = mouse.clientX;
         const posY = mouse.clientY;
         ctx.beginPath();
         ctx.arc(posX, posY, 50, 0, Math.PI * 2, true);
-        ctx.fillStyle = 'rgb(' + 200 + i + ',' + 100 + j + ',' + 10 + k + ')';
-        console.log(ctx.fillStyle);
-
+        hue++;
+        ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
         ctx.fill();
         ctx.moveTo(posX, posY)
         ctx.stroke();
-        // }
+        if (hue >= 360) {
+          hue = 0;
+        }
       }
     }
     canvas.addEventListener('mousedown', () => {
