@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Videos</title>
 </head>
+
 <body>
   <ul class="videos">
     <li data-time="5:43">
@@ -181,7 +183,19 @@
       Video 58
     </li>
   </ul>
-<script>
-</script>
+  <script>
+    const dataTime = Array.from(document.querySelectorAll('li'));
+    let timeSplitter = dataTime.map(data => data.getAttribute('data-time').split(":"));
+    let getTotalSeconds = timeSplitter.reduce((total, val) => {
+      total += parseInt(val[0]) * 60;
+      total += parseInt(val[1]);
+      return total;
+    }, 0);
+    let h = Math.floor(getTotalSeconds / 3600);
+    let m = Math.floor((getTotalSeconds % 3600) / 60);
+    let s = Math.floor((getTotalSeconds % 3600) % 60);
+    let result = `${h}:${m}:${s}`;
+  </script>
 </body>
+
 </html>
