@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
 </head>
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
@@ -15,5 +21,38 @@
   }
 </style>
 
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    const canvas = document.getElementById('draw');
+    const ctx = canvas.getContext('2d');
+    let sw = true;
+    let hue = 0;
+    const draw = (mouse) => {
+      if (sw) {
+        const posX = mouse.clientX;
+        const posY = mouse.clientY;
+        ctx.beginPath();
+        ctx.arc(posX, posY, 50, 0, Math.PI * 2, true);
+        hue++;
+        ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.fill();
+        ctx.moveTo(posX, posY)
+        ctx.stroke();
+        if (hue >= 360) {
+          hue = 0;
+        }
+      }
+    }
+    canvas.addEventListener('mousedown', () => {
+      sw = true;
+      canvas.addEventListener('mousemove', draw);
+    });
+    canvas.addEventListener('mouseup', () => {
+      sw = false;
+    });
+  </script>
 </body>
+
 </html>
